@@ -1,64 +1,61 @@
 # Open Agent Commerce Protocol (OACP) Specification
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Version-0.1%20(Draft)-blue.svg" alt="Specification v0.1 (Draft)">
-  <img src="https://img.shields.io/badge/Status-Public%20Draft%20for%20Discussion-orange.svg" alt="Status: Public Draft for Discussion">
-  <img src="https://img.shields.io/badge/Layer-1%20(Application)-green.svg" alt="Layer 1 (Application)">
-</p>
+[![Specification v0.1 (Draft)](https://img.shields.io/badge/Version-0.1%20(Draft)-blue.svg)](https://github.com/oap-foundation/oacp-spec/blob/main/specification/v0.1.md)
+[![Status: Public Draft for Discussion](https://img.shields.io/badge/Status-Public%20Draft%20for%20Discussion-orange.svg)](https://github.com/oap-foundation/oacp-spec/discussions)
+[![Layer 1 (Application Protocol)](https://img.shields.io/badge/Layer-1%20(Application)-lightgrey.svg)](https://github.com/oap-foundation/oap-framework)
 
 This repository contains the official technical specification for the **Open Agent Commerce Protocol (OACP)**.
 
-OACP is a Layer 1 application protocol of the [Open Agent Protocol Framework](https://github.com/oap-foundation/oap-framework). It is designed to run on top of a secure connection established via **OAEP**. OACP standardizes fair, transparent, and legally binding commercial transactions between autonomous AI agents.
+OACP is a Layer 1 Application Protocol within the [Open Agent Protocol Framework](https://github.com/oap-foundation/oap-framework). While [OAEP](https://github.com/oap-foundation/oaep-spec) handles the trust and connection layer, **OACP** defines the standard for autonomous agents to conduct economic activity: finding products, negotiating prices, placing orders, and settling payments without centralized intermediaries.
 
 ## The Problem Solved by OACP
 
-Today's digital commerce is dominated by centralized gatekeepers who dictate the rules, extract exorbitant fees (15-30% "gatekeeper tax"), and create an opaque marketplace where marketing budgets often trump product quality. This stifles innovation and puts small and medium-sized enterprises (SMEs) at a significant disadvantage.
+Current digital commerce is siloed within centralized platforms (Amazon, Uber, App Stores) that extract high fees and control user data. AI agents currently lack a standardized way to "do business" with each other across these silos.
 
-OACP aims to disintermediate these gatekeepers by creating a common, open language for agent-to-agent commerce, enabling a renaissance of fair competition.
+OACP provides a universal language for **Agent-to-Agent (A2A) Commerce**. It allows an agent representing a buyer to seamlessly transact with an agent representing a seller, regardless of the underlying platform or payment rails.
 
 ## Core Concepts
 
-OACP translates the complex rituals of commerce into a machine-readable, verifiable, and secure protocol.
+OACP standardizes the lifecycle of a digital transaction:
 
-1.  **Fact-Based Discovery:** Agents search for products and services based on verifiable criteria (e.g., "Show me laptops with an EcoFriendlyCertified VC"), not on manipulated search rankings.
-2.  **Semantic Interoperability:** Using standard vocabularies like JSON-LD and [Schema.org](https://schema.org/), OACP ensures that offers and requests are understood unambiguously by all participating agents.
-3.  **Transactional Integrity:** OACP defines mechanisms for atomic order/payment linking and a fair, evidence-based dispute resolution framework, replacing the arbitrary policies of today's platforms.
-4.  **Legal Certainty:** Transactions are made legally binding through the use of eIDAS-compliant electronic signatures, as established by the underlying OAEP layer.
+1.  **Discovery & Intent:** How an agent broadcasts what it is looking for (an `Intent`) or what it offers.
+2.  **Negotiation:** A structured message flow to agree on terms (e.g., `Offer`, `CounterOffer`, `Acceptance`).
+3.  **Contract:** The creation of a cryptographically signed agreement (`SmartInvoice`) that binds both agents.
+4.  **Settlement:** Agnostic integration with payment rails (Crypto, Lightning, Fiat/Stripe) to prove payment completion (`PaymentReceipt`).
 
 ## Specification Document
 
 The full technical specification is a work in progress and is being developed in this repository.
 
 > **➡️ [Read the full OACP v0.1 Specification (Draft)](/specification/v0.1.md)**
-> *(Note: The spec itself should be a separate, more detailed markdown file within this repo, for example in a `/specification` folder.)*
+> *(Note: The spec itself is located in the `/specification` folder.)*
 
 This document details:
-*   The core intents (`NegotiateRequest`, `OrderRequest`) and objects (`Product`, `OfferResponse`).
-*   The standard transaction flow for a product purchase, from discovery to confirmation.
-*   The structure of verifiable product claims.
-*   The mechanisms for transactional atomicity (linking with OAPP) and dispute resolution.
+*   The JSON schemas for commerce objects (`Product`, `Order`, `Invoice`).
+*   The state machine for transaction lifecycles (Pending -> Paid -> Delivered).
+*   Error handling for disputes and refunds.
 
-## Status: OACP Lighthouse Project
+## Reference Implementations
 
-OACP is the first and most critical Layer 1 protocol under development. Its successful implementation is the **"Lighthouse Project"** for the entire OAP ecosystem, designed to deliver the first undeniable proof of the economic superiority of a fair and open system.
+To help developers build compliant commerce agents, we provide official reference implementations.
 
-The specification is currently a **v0.1 Draft** and serves as a "Strawman Proposal" for discussion with our initial founding partners in e-commerce, finance, and technology integration.
+### PHP
+*   **[oap-foundation/oacp-php](https://github.com/oap-foundation/oacp-php)**
+    *   The first reference implementation of OACP v0.1.
+    *   Includes classes for creating Offers, validating Invoices, and managing the transaction state machine.
+
+## Status: Public Draft for Discussion
+
+This specification is at a very early stage (**v0.1 Draft**). It is published as a "Strawman Proposal" to serve as a concrete basis for technical discussion with the developer and e-commerce community. We explicitly invite feedback, critique, and proposals for improvement.
 
 ## How to Contribute
 
-We are actively seeking experts in e-commerce, payment systems, supply chain logistics, and law to help shape this standard.
+We are looking for contributions from e-commerce experts, payment engineers, and agent developers.
 
-*   **To propose a change or discuss a use case,** please [open a new issue](https://github.com/oap-foundation/oacp-spec/issues/new). We want to ensure OACP solves real-world business problems from day one.
-*   **To suggest an editorial change or fix a typo,** feel free to submit a pull request directly.
+*   **To propose a change,** please [open a new issue](https://github.com/oap-foundation/oacp-spec/issues/new) to discuss your idea.
+*   **To fix a typo or improve wording,** please submit a pull request directly.
 
 Please review our main [Contribution Guidelines](https://github.com/oap-foundation/oap-framework/blob/main/CONTRIBUTING.md) before you start.
-
-## Relationship to Other Protocols
-
-OACP is designed to work in concert with other OAP protocols:
-
-*   **Depends on:** [**OAEP**](https://github.com/oap-foundation/oaep-spec) (must have an established OAEP connection).
-*   **Works with:** **OAPP (Open Agent Payment Protocol)** for the payment authorization and settlement leg of a transaction. The `paymentRequest` object in an `OrderConfirmation` acts as the handover point to OAPP.
 
 ## License
 
